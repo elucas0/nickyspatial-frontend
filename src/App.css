@@ -1,38 +1,136 @@
+/* src/App.css */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+section {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+h1,
+h2,
+h3 {
+  color: #333;
+}
+
+button {
+  background-color: #007bff;
   color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+button.secondary {
+  background-color: #dc3545;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:hover {
+  background-color: #0056b3;
+}
+
+button.secondary:hover {
+  background-color: #c82333;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.image-container {
+  margin-top: '20px';
+  border: '1px solid #ccc';
+  border-radius: '8px';
+  padding: '10px';
+  background-color: '#f9f9f9';
+  box-shadow: '0 2px 4px rgba(0,0,0,0.1)';
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+}
+
+.window-content {
+  display: flex;
+  gap: 20px;
+  height: 75vh;
+  overflow-y: auto;
+}
+
+.process-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-header:hover {
+  background-color: #e9e9e9;
+}
+
+.dropdown-content {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.segmentation-form {
+  display: flex;
+  flex-direction: column;
 }
