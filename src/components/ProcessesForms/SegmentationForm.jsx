@@ -8,11 +8,13 @@ function SegmentationForm({
   setError,
   setClassificationResult,
   sessionId,
+  plotsUrl,
+  setPlotsUrl
 }) {
   const [segmentationLayerName, setSegmentationLayerName] =
     useState("Base_Segmentation");
   const [scale, setScale] = useState(20);
-  const [compactness, setCompactness] = useState(1.0);
+  const [compactness, setCompactness] = useState(0.5);
 
   /**
    * Handles the segmentation process.
@@ -35,6 +37,7 @@ function SegmentationForm({
         segmentationLayerName
       );
       setSegmentationResult(data);
+      setPlotsUrl((prev) => [...prev, data.plot_url]);
     } catch (err) {
       setError(err.message);
     } finally {

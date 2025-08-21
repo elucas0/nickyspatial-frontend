@@ -22,7 +22,7 @@ export const uploadRasterAndSegment = async (
           "Content-Type": "application/json", // Sending slicParams as JSON body
         },
         body: JSON.stringify({
-          ...slicParams,
+          slic_params: slicParams,
           segmentation_name: segmentationLayerName,
         }),
       }

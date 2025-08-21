@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# nickyspatial_frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React frontend for the [nickyspatial](https://github.com/kshitijrajsharma/nickyspatial) project, a web application for remote sensing analysis. It provides a user-friendly interface to interact with the nickyspatial_api backend, enabling users to upload, process, and manage geospatial data.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User Interface: A web-based interface for interacting with the backend API.
 
-### `npm start`
+- Layer Management: Allows users to view, manage, and inspect geospatial layers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Processing Tools: Provides access to various geospatial analysis tools like segmentation and classification.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Results Visualization: Displays results of geospatial processing in an intuitive manner.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow these steps to get the frontend application up and running on your local machine.
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You need to have a recent version of Node.js and npm installed.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Install dependencies:
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Start the development server:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application will be available at http://localhost:3000.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Connecting to the Backend
 
-## Learn More
+The frontend application is configured to connect to the nickyspatial_api backend. By default, it will assume the backend is running at http://localhost:8000.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If your backend is running on a different address, you will need to update the API endpoint in the application's configuration.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+.
+├── public/
+│   ├── index.html            # Main HTML file
+│   └── ...
+├── src/
+│   ├── components/           # Reusable React components
+│   ├── usecases/             # Business logic and API calls
+│   ├── App.jsx               # Main application component
+│   └── index.jsx             # Entry point for React
+└── package.json

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import RasterPreview from "../RasterPreview";
 import SegmentationForm from "../ProcessesForms/SegmentationForm";
 import ClassificationForm from "../ProcessesForms/ClassificationForm";
-import GeoMap from "../GeoMap";
+import CalculateFeaturesForm from "../ProcessesForms/CalculateFeaturesForm";
 
 const operation_list = [
   "",
@@ -37,7 +36,9 @@ function ProcessTab({
   onSegment,
   onClassify,
   refreshLayers,
-  setRefreshLayers
+  setRefreshLayers,
+  plotsUrl,
+  setPlotsUrl
 }) {
   // State to manage the dynamic list of processes
   const [processes, setProcesses] = useState([]);
@@ -153,6 +154,8 @@ function ProcessTab({
                     sessionId={sessionId}
                     refreshLayers={refreshLayers}
                     setRefreshLayers={setRefreshLayers}
+                    plotsUrl={plotsUrl}
+                    setPlotsUrl={setPlotsUrl}
                   />
                 )}
 
@@ -166,6 +169,17 @@ function ProcessTab({
                     loading={loading}
                     refreshLayers={refreshLayers}
                     setRefreshLayers={setRefreshLayers}
+                  />
+                )}
+
+                {process.type === "Add features" && (
+                  <CalculateFeaturesForm
+                    sessionId={sessionId}
+                    setError={setError}
+                    setLoading={setLoading}
+                    loading={loading}
+                    plotsUrl={plotsUrl}
+                    setPlotsUrl={setPlotsUrl}
                   />
                 )}
 

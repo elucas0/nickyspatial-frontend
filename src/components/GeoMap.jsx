@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, GeoJSON, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// This fix is crucial for Leaflet icons to work correctly
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 delete L.Icon.Default.prototype._getIconUrl;
@@ -51,7 +50,6 @@ function GeoMap({ geojsonData }) {
 
     // Function to set GeoJSON style based on properties (e.g., classification)
     const geoJsonStyle = (feature) => {
-        // You can use a more sophisticated color mapping here
         const colorMap = {
             'Vegetation': 'green',
             'Water': 'blue',

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { clearSession } from "./usecases/ClearSession";
 
 import "./App.css";
-import ProcessTab from "./components/Tabs/ProcessTab";
-import LayerManagerTab from "./components/Tabs/LayerManagerTab";
-import ResultsTab from "./components/Tabs/ResultsTab";
+import ProcessTab from "./components/Widgets/ProcessWidget";
+import LayerManagerTab from "./components/Widgets/LayerManagerWidget";
+import ResultsTab from "./components/Widgets/ResultsWidget";
 import FileUploader from "./components/FileUploader";
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
   const [error, setError] = useState(null);
   const [sessionId, setSessionId] = useState(null);
   const [refreshLayers, setRefreshLayers] = useState(0);
+  const [plotsUrl, setPlotsUrl] = useState([]);
 
   /**
    * Handles the file selection from the user's computer or a sample data load.
@@ -67,6 +68,7 @@ function App() {
       <div className="window-content">
         <section style={{ width: "65%" }}>
           <ResultsTab
+            plotsUrl={plotsUrl}
             segmentationResult={segmentationResult}
             classificationResult={classificationResult}
           />
@@ -92,6 +94,8 @@ function App() {
               onClearSession={handleClearSession}
               refreshLayers={refreshLayers}
               setRefreshLayers={setRefreshLayers}
+              plotsUrl={plotsUrl}
+              setPlotsUrl={setPlotsUrl}
             />
           </section>
           <section style={{ height: "50%", overflowY: "auto" }}>
