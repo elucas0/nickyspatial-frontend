@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { clearSession } from "./usecases/ClearSession";
 
 import "./App.css";
@@ -6,6 +6,8 @@ import ProcessTab from "./components/Widgets/ProcessWidget";
 import LayerManagerTab from "./components/Widgets/LayerManagerWidget";
 import ResultsTab from "./components/Widgets/ResultsWidget";
 import FileUploader from "./components/FileUploader";
+import { Fab } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -52,9 +54,20 @@ function App() {
     }
   };
 
+  const childRef = useRef();
+
+  // The FAB's click handler calls a method on the child component
+  const handleFabClick = () => {
+    if (childRef.current) {
+      childRef.current.handleAddProcess();
+    }
+  };
+
   return (
     <div className="App">
-      <h1 style={{ marginBottom: "0px" }}>NickySpatial + React</h1>
+      <h1 style={{ marginBottom: "0px", color: "#fff" }}>
+        NickySpatial + React
+      </h1>
       <FileUploader
         handleRasterLoad={handleRasterLoad}
         setLoading={setLoading}
@@ -76,6 +89,7 @@ function App() {
         <div style={{ display: "flex", flexDirection: "column", width: "35%" }}>
           <section
             style={{
+              position: "relative",
               height: "50%",
               overflowY: "auto",
             }}
@@ -96,7 +110,21 @@ function App() {
               setRefreshLayers={setRefreshLayers}
               plotsUrl={plotsUrl}
               setPlotsUrl={setPlotsUrl}
+              ref={childRef}
             />
+            <Fab
+              color="primary"
+              aria-label="add"
+              onClick={handleFabClick}
+              disabled={loading || !selectedFile || !sessionId}
+              style={{
+                position: "sticky",
+                top: "85%",
+                left: "85%",
+              }}
+            >
+              <Add />
+            </Fab>
           </section>
           <section style={{ height: "50%", overflowY: "auto" }}>
             <LayerManagerTab sessionId={sessionId} loading={loading} />

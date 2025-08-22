@@ -1,7 +1,20 @@
-import React, { useState } from "react";
+import React, { useImperativeHandle, useState } from "react";
 import SegmentationForm from "../ProcessesForms/SegmentationForm";
 import ClassificationForm from "../ProcessesForms/ClassificationForm";
 import CalculateFeaturesForm from "../ProcessesForms/CalculateFeaturesForm";
+import {
+  Button,
+  Collapse,
+  Fab,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  MenuItem,
+  Select,
+} from "@mui/material";
+import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
 
 const operation_list = [
   "",
@@ -38,7 +51,8 @@ function ProcessTab({
   refreshLayers,
   setRefreshLayers,
   plotsUrl,
-  setPlotsUrl
+  setPlotsUrl,
+  ref,
 }) {
   // State to manage the dynamic list of processes
   const [processes, setProcesses] = useState([]);
@@ -54,6 +68,10 @@ function ProcessTab({
       { id: newId, type: "", isExpanded: true }, // Add a new, expanded process
     ]);
   };
+
+  useImperativeHandle(ref, () => ({
+    handleAddProcess,
+  }));
 
   /**
    * Removes a process from the list.
@@ -102,98 +120,92 @@ function ProcessTab({
       {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
       {/* Dynamic process list section */}
-      <div className="section">
-        <button
-          onClick={handleAddProcess}
-          style={{ marginBottom: "20px", position: "sticky", top: "5px" }}
-          disabled={loading || !selectedFile || !sessionId}
-        >
-          + Add process
-        </button>
-
+      <List>
         {processes.map((process, index) => (
-          <div key={process.id} className="process-container">
-            <div
-              className="dropdown-header"
+          <div key={process.id} style={{ marginBottom: "1rem" }}>
+            <ListItemButton
+              key={process.id}
               onClick={() => toggleExpander(process.id)}
+              style={{
+                backgroundColor: "#f9fafb",
+                borderRadius: "0.375rem",
+                color: "#374151",
+              }}
             >
-              <h3 style={{ margin: 0, cursor: "pointer" }}>
-                Process {index + 1}: {process.type || "Select Operation"}
-              </h3>
-              <span style={{ cursor: "pointer" }}>
-                {process.isExpanded ? "▲" : "▼"}
-              </span>
-            </div>
+              <ListItemText
+                primary={`Process ${index + 1}: ${
+                  process.type || "Select Operation"
+                }`}
+              />
+              {process.isExpanded ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={process.isExpanded} timeout="auto" unmountOnExit>
+              <Select
+                label="Select Operation"
+                value={process.type}
+                onChange={(e) =>
+                  handleOperationChange(process.id, e.target.value)
+                }
+                displayEmpty
+                fullWidth
+                style={{ marginTop: "1rem", marginBottom: "1rem" }}
+              >
+                {operation_list.map((op, i) => (
+                  <MenuItem key={i} value={op}>
+                    {op}
+                  </MenuItem>
+                ))}
+              </Select>
+              {process.type === "Segmentation" && (
+                <SegmentationForm
+                  loading={loading}
+                  setSegmentationResult={setSegmentationResult}
+                  setLoading={setLoading}
+                  setError={setError}
+                  setClassificationResult={setClassificationResult}
+                  sessionId={sessionId}
+                  refreshLayers={refreshLayers}
+                  setRefreshLayers={setRefreshLayers}
+                  plotsUrl={plotsUrl}
+                  setPlotsUrl={setPlotsUrl}
+                />
+              )}
 
-            {process.isExpanded && (
-              <div className="dropdown-content">
-                <div className="form-group">
-                  <label>Select Operation:</label>
-                  <select
-                    value={process.type}
-                    onChange={(e) =>
-                      handleOperationChange(process.id, e.target.value)
-                    }
-                    style={{ width: "100%", padding: "8px" }}
-                  >
-                    {operation_list.map((op, i) => (
-                      <option key={i} value={op}>
-                        {op}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              {process.type === "Rule-based Classification" && (
+                <ClassificationForm
+                  sessionId={sessionId}
+                  segmentationResult={segmentationResult}
+                  setError={setError}
+                  setLoading={setLoading}
+                  setClassificationResult={setClassificationResult}
+                  loading={loading}
+                  refreshLayers={refreshLayers}
+                  setRefreshLayers={setRefreshLayers}
+                />
+              )}
 
-                {process.type === "Segmentation" && (
-                  <SegmentationForm
-                    loading={loading}
-                    setSegmentationResult={setSegmentationResult}
-                    setLoading={setLoading}
-                    setError={setError}
-                    setClassificationResult={setClassificationResult}
-                    sessionId={sessionId}
-                    refreshLayers={refreshLayers}
-                    setRefreshLayers={setRefreshLayers}
-                    plotsUrl={plotsUrl}
-                    setPlotsUrl={setPlotsUrl}
-                  />
-                )}
+              {process.type === "Add features" && (
+                <CalculateFeaturesForm
+                  sessionId={sessionId}
+                  setError={setError}
+                  setLoading={setLoading}
+                  loading={loading}
+                  plotsUrl={plotsUrl}
+                  setPlotsUrl={setPlotsUrl}
+                />
+              )}
 
-                {process.type === "Rule-based Classification" && (
-                  <ClassificationForm
-                    sessionId={sessionId}
-                    segmentationResult={segmentationResult}
-                    setError={setError}
-                    setLoading={setLoading}
-                    setClassificationResult={setClassificationResult}
-                    loading={loading}
-                    refreshLayers={refreshLayers}
-                    setRefreshLayers={setRefreshLayers}
-                  />
-                )}
-
-                {process.type === "Add features" && (
-                  <CalculateFeaturesForm
-                    sessionId={sessionId}
-                    setError={setError}
-                    setLoading={setLoading}
-                    loading={loading}
-                    plotsUrl={plotsUrl}
-                    setPlotsUrl={setPlotsUrl}
-                  />
-                )}
-
-                <button
-                  onClick={() => handleDeleteProcess(process.id)}
-                  className="secondary"
-                >
-                  Delete
-                </button>
-              </div>
-            )}
+              <Button
+                onClick={() => handleDeleteProcess(process.id)}
+                variant="outlined"
+                color="error"
+              >
+                Delete
+              </Button>
+            </Collapse>
           </div>
         ))}
-      </div>
+      </List>
     </div>
   );
 }

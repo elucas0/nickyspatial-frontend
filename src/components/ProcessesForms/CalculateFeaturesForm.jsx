@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { getLayerInfo, getLayers } from "../../usecases/LayerManager";
 import { calculateFeatures } from "../../usecases/CalculateFeatures";
+import { Alert } from "@mui/material";
 
 export default function CalculateFeaturesForm({
   sessionId,
@@ -123,9 +124,9 @@ export default function CalculateFeaturesForm({
       {layerListLoading && <p>Loading layers...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {!layerListLoading && layers.length === 0 ? (
-        <div className="p-4 bg-yellow-100 text-yellow-700 rounded-md">
+        <Alert severity="info">
           No segmentation layers available. Run segmentation first.
-        </div>
+        </Alert>
       ) : (
         <div>
           <div className="flex flex-col">

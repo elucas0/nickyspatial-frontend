@@ -1,78 +1,30 @@
 /* src/App.css */
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  font-family: Arial, sans-serif;
   padding: 20px;
-  margin: 0 auto;
+  background-color: #282c34;
+  min-height: 100vh;
 }
 
 section {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  border: 1px solid #414141;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  color: #fff;
 }
 
-h1,
-h2,
-h3 {
-  color: #333;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-button.secondary {
-  background-color: #dc3545;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-button.secondary:hover {
-  background-color: #c82333;
-}
-
-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-input[type="text"],
-input[type="number"],
-textarea {
-  width: calc(100% - 22px);
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  border-radius: 4px;
-  overflow-x: auto;
+h2 {
+  color: #fff;
+  margin-top: 0;
 }
 
 .image-container {
@@ -101,36 +53,9 @@ img {
   overflow-y: auto;
 }
 
-.process-container {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-}
-
-.dropdown-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  background-color: #f7f7f7;
-  cursor: pointer;
-  border-bottom: 1px solid #ddd;
-}
-
-.dropdown-header:hover {
-  background-color: #e9e9e9;
-}
-
-.dropdown-content {
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  padding: 15px;
-}
-
 .segmentation-form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  margin-bottom: 1rem;
 }

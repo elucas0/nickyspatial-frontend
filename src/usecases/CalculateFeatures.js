@@ -30,8 +30,7 @@ export const calculateFeatures = async (
             throw new Error(errorData.detail || "Failed to calculate features.");
         }
 
-        const result = await response.json();
-        return { success: true, message: result.message };
+        return await response.json();
     } catch (error) {
         return { success: false, message: error.message };
     }

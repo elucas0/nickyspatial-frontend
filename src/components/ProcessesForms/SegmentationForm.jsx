@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { uploadRasterAndSegment } from "../../usecases/Segment";
+import { Button, Slider, TextField } from "@mui/material";
 
 function SegmentationForm({
   loading,
@@ -9,7 +10,7 @@ function SegmentationForm({
   setClassificationResult,
   sessionId,
   plotsUrl,
-  setPlotsUrl
+  setPlotsUrl,
 }) {
   const [segmentationLayerName, setSegmentationLayerName] =
     useState("Base_Segmentation");
@@ -51,22 +52,21 @@ function SegmentationForm({
   };
 
   return (
-    <>
+    <div>
       <div>
         <h3>Image Segmentation</h3>
         <p>Configure segmentation parameters and run the algorithm</p>
       </div>
       <form onSubmit={handleSubmit} className="segmentation-form">
-        <div>
-          <label>
-            Segmentation Layer Name:
-            <input
-              type="text"
-              value={segmentationLayerName}
-              onChange={(e) => setSegmentationLayerName(e.target.value)}
-            />
-          </label>
-        </div>
+        <TextField
+          type="text"
+          label="Segmentation Layer Name"
+          required
+          value={segmentationLayerName}
+          color="primary"
+          fullWidth
+          onChange={(e) => setSegmentationLayerName(e.target.value)}
+        />
         <div
           style={{
             display: "flex",
@@ -76,32 +76,39 @@ function SegmentationForm({
         >
           <label style={{ width: "100%" }}>
             Scale (segment size):
-            <input
-              type="number"
+            <Slider
               value={scale}
               onChange={(e) => setScale(parseInt(e.target.value))}
               min={5}
+              marks
               max={100}
               step={5}
+              valueLabelDisplay="auto"
             />
           </label>
           <label style={{ width: "100%" }}>
             Compactness:
-            <input
-              type="number"
+            <Slider
               value={compactness}
               onChange={(e) => setCompactness(parseFloat(e.target.value))}
               step={0.1}
               min={0.1}
               max={5.0}
+              marks
+              valueLabelDisplay="auto"
             />
           </label>
         </div>
-        <button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={loading}
+          variant="contained"
+          color="primary"
+        >
           {loading ? "Loading..." : "Perform Segmentation"}
-        </button>
+        </Button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -4,6 +4,14 @@ import {
   getLayers,
   getLayerInfo,
 } from "../../usecases/LayerManager";
+import {
+  Button,
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 function LayerManagerTab({ sessionId, onLayerDeleted, loading }) {
   const [layers, setLayers] = useState([]);
@@ -100,33 +108,29 @@ function LayerManagerTab({ sessionId, onLayerDeleted, loading }) {
 
   return (
     <div>
-      <h2>Layer Manager</h2>
-      <div>
-        {layerListLoading && <p>Loading layers...</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {!layerListLoading && layers.length === 0 && (
-          <p>No layers created yet.</p>
-        )}
+      {layerListLoading && <p>Loading layers...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {!layerListLoading && layers.length === 0 && (
+        <p>No layers created yet.</p>
+      )}
 
+      <List>
         {layers.map((layerName) => (
-          <div
-            key={layerName}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              marginBottom: "10px",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              className="dropdown-header"
+          <div key={layerName} style={{ marginBottom: "1rem" }}>
+            <ListItemButton
+              key={layerName}
               onClick={() => handleToggleLayer(layerName)}
+              style={{
+                backgroundColor: "#f9fafb",
+                borderRadius: "0.375rem",
+                color: "#374151",
+              }}
             >
-              <h4 style={{ margin: 0 }}>{layerName}</h4>
-              <span>{openLayer === layerName ? "▲" : "▼"}</span>
-            </div>
-            {openLayer === layerName && (
-              <div className="dropdown-content">
+              <ListItemText primary={layerName} />
+              {openLayer === layerName ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openLayer === layerName} timeout="auto" unmountOnExit>
+              <div>
                 {loadingInfo && <p>Loading info...</p>}
                 {infoError && <p style={{ color: "red" }}>{infoError}</p>}
                 {layerInfo && (
@@ -144,21 +148,22 @@ function LayerManagerTab({ sessionId, onLayerDeleted, loading }) {
                 <div
                   style={{ display: "flex", gap: "10px", marginTop: "15px" }}
                 >
-                  <button onClick={() => handleExport(layerName)}>
+                  <Button onClick={() => handleExport(layerName)} variant="contained">
                     Export Options
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => handleDeleteLayer(layerName)}
-                    style={{ backgroundColor: "#dc3545", color: "white" }}
+                    variant="outlined"
+                    color="error"
                   >
                     <span>Delete</span>
-                  </button>
+                  </Button>
                 </div>
               </div>
-            )}
+            </Collapse>
           </div>
         ))}
-      </div>
+      </List>
     </div>
   );
 }

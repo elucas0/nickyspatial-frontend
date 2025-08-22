@@ -1,4 +1,6 @@
+import { Button, Chip } from "@mui/material";
 import { loadRaster } from "../usecases/LoadRaster";
+import { Delete } from "@mui/icons-material";
 
 function FileUploader({
   handleRasterLoad,
@@ -34,32 +36,24 @@ function FileUploader({
   return (
     <div>
       {selectedFile && sessionId ? (
-        <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-          <p
-            style={{
-              border: "1px solid black",
-              padding: "5px",
-              borderRadius: "5px",
-            }}
-          >
-            Selected File: {selectedFile.name}
-          </p>
-          <p
-            style={{
-              border: "1px solid black",
-              padding: "5px",
-              borderRadius: "5px",
-            }}
-          >
-            Current Session ID: {sessionId}
-          </p>
-          <button
+        <div style={{ display: "flex", flexDirection: "row", gap: "15px", alignItems: "center" }}>
+          <Chip
+            label={`Selected File: ${selectedFile.name}`}
+            color="primary"
+          />
+          <Chip
+            label={`Current Session ID: ${sessionId}`}
+            color="primary"
+          />
+          <Button
             onClick={onClearSession}
             disabled={loading}
-            className="secondary"
+            variant="contained"
+            color="error"
+            startIcon={<Delete />}
           >
             Clear Session
-          </button>
+          </Button>
         </div>
       ) : (
         <div>
